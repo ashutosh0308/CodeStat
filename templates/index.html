@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    <link rel="icon" href="/static/styles/tab_icon.png">
+    <title>CodeStat</title>
+
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            
+            <div class="navbar-header">
+                <img class="logo" src="/static/styles/logo_new.png">
+           </div>
+          <div class="dropdown">
+            <button class="dropbtn">Ready, Set, Code!</button>
+            <div class="dropdown-content">
+              <a href="https://www.geeksforgeeks.org/must-do-coding-questions-for-companies-like-amazon-microsoft-adobe/?ref=shm#arrays" target="_blank">
+                GFG</a>
+              <a href="https://leetcode.com/problemset/all/" target="_blank">LeetCode</a>
+              <a href="https://codeforces.com/problemset" target="_blank">CodeForces</a>
+              <a href="https://www.codechef.com/problems/school/?itm_medium=navmenu&itm_campaign=problems" target="_blank">CodeChef</a>
+              <a href="https://www.hackerrank.com/dashboard" target="_blank">HackerRank</a>
+              <a href="https://www.hackerearth.com/practice/" target="_blank">HackerEarth</a>
+
+            </div>
+          </div> 
+          <div class="dropdown">
+            <button class="dropbtn">CS Fundamentals</button>
+            <div class="dropdown-content">
+              <a href="https://www.geeksforgeeks.org/operating-systems/" target="_blank">OS</a>
+              <a href="https://www.geeksforgeeks.org/computer-network-tutorials/?ref=ghm/" target="_blank">CN</a>
+              <a href="https://www.geeksforgeeks.org/dbms/" target="_blank">DBMS</a>
+              <a href="https://www.geeksforgeeks.org/software-engineering/?ref=ghm" target="_blank" >SE</a>
+
+            </div>
+          </div>
+          <div>
+            <button class="dropbtn" onclick=instruction()>How to Use CodeStat ?</button>
+          </div>
+          
+        </div>
+    </nav>
+
+  <div class="row">
+    <br>
+    <img id="fetchsection" src='/static/styles/fetchsection.png'>
+    <br><br>
+    <div class='column' id='div1'>
+
+      <img class="sitelogo" src="/static/styles/codechef.svg">
+
+
+        <form action="{{ url_for('index')}}"method="get">
+            <input type="text" name="cc_inp" placeholder="Your CodeChef UserName" />
+            <br><br>
+            <button class='btn' type="submit">Submit</button>
+            <br><br>
+            {{cc_msg}}
+            <br><br>
+        </form>
+        <button class='btn' id='showmodal_gfg' onclick="setTimeout(openmodalcc,500)">Get Details</button>
+            <br><br>
+
+      </div>
+      
+      <div class='column' id='div2'>
+        <img class="sitelogo" src="/static/styles/codeforces.svg">
+        <form action="{{ url_for('index')}}" method="get">
+            <input type="text" name="cf_inp" placeholder="Your CodeForces UserName"  />
+            <br><br>
+            <button class='btn' type="submit" >Submit</button>
+            <br><br>
+            {{cf_msg}}
+            <br><br>
+        </form>
+        <button class='btn' id='showmodal_cf' onclick="setTimeout(openmodalcf,500)">Get Details</button>
+            <br><br>
+
+
+
+      </div>
+      
+      <div class='column' id='div3'>
+        <img class="sitelogo" src="/static/styles/hackerrank.svg">
+        <form action="{{ url_for('index')}}"method="get">
+            <input type="text" name="hr_inp" placeholder="Your HackerRank UserName"  />
+            <br><br>
+            <button class='btn' type="submit" >Submit</button>
+            <br><br>
+            {{hr_msg}}
+            <br><br>
+        </form>
+        <button class='btn' id='showmodal_hr' onclick="setTimeout(openmodalhr,500)">Get Details</button>
+        <br><br>
+
+
+
+      </div>
+
+      <div class='column' id='div4'>
+        <img class="sitelogo" src="/static/styles/geeksforgeeks.svg">
+        <form action="{{ url_for('index')}}"method="get">
+            <input type="text" name="gfg_inp" placeholder="Your GFG UserName"  />
+            <br><br>
+            <button class='btn' type="submit">Submit</button>
+            <br><br>
+            {{gfg_msg}}
+            <br><br>
+        </form>
+        <button class='btn' id='showmodal_gfg' onclick="setTimeout(openmodalgfg,500)">Get Details</button>
+            <br><br>
+
+      </div>
+
+    </div>
+
+
+            <!-- The Modal HR -->
+<div id="myModal_cc" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="closecc" id="close">&times;</span>
+      <h2>CodeChef Stats</h2>
+    </div>
+    <div class="modal-body">
+      <table>
+        <tr>
+          <td>Name : </td>
+          <td>{{op_cc[0]}}</td>
+        </tr>
+        <tr>
+          <td>Rating : </td>
+          <td>{{op_cc[1]}}</td>
+        </tr>
+        <tr>
+          <td>Stars :  </td>
+          <td>{{op_cc[2]}}</td>
+        </tr>
+        <tr>
+          <td>Global Rank : </td>
+          <td>{{op_cc[3]}}</td>
+        </tr>
+        <tr>
+          <td>Country Rank : </td>
+          <td>{{op_cc[4]}}</td>
+        </tr>
+        <tr>
+          <td>Problems : </td>
+          <td>{{op_cc[5]}} & {{op_cc[6]}}</td>
+        </tr>
+
+      </table>
+
+    </div>
+    <div class="modal-footer">
+      <h3>Keep Up the good work!</h3>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+        <!-- The Modal HR -->
+<div id="myModal_cf" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="closecf" id="close">&times;</span>
+      <h2>CodeForces Stats</h2>
+    </div>
+    <div class="modal-body">
+
+      <table>
+        <tr>
+          <td>Name : </td>
+          <td>{{op_cf[0]}}</td>
+        </tr>
+        <tr>
+          <td>Title : </td>
+          <td>{{op_cf[1]}}</td>
+        </tr>
+        <tr>
+          <td>Current Rating :  </td>
+          <td>{{op_cf[2]}}</td>
+        </tr>
+        <tr>
+          <td>Max Rating : </td>
+          <td>{{op_cf[3]}}</td>
+        </tr>
+        <tr>
+          <td>Problems Solved : </td>
+          <td>{{op_cf[4]}}</td>
+        </tr>
+      </table>
+
+    </div>
+    <div class="modal-footer">
+      <h3>Keep Up the good work!</h3>
+    </div>
+  </div>
+
+</div>
+
+
+
+    <!-- The Modal HR -->
+<div id="myModal_hr" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="closehr" id="close">&times;</span>
+      <h2>HackerRank Stats</h2>
+    </div>
+    <div class="modal-body">
+      <table>
+        <tr>
+          <td>Name : </td>
+          <td>{{op_hr[0]}}</td>
+        </tr>
+        <tr>
+          <td>Badges and Stars : </td>
+          <td>{{op_hr[1]}}</td>
+        </tr>
+        <tr>
+          <td>Certificates : </td>
+          <td>{{op_hr[2]}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <h3>Keep Up the good work!</h3>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+<!-- The Modal GFG -->
+<div id="myModal_gfg" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="closegfg" id="close">&times;</span>
+      <h2>GFG Stats</h2>
+    </div>
+    <div class="modal-body">
+      <table>
+        <tr>
+          <td>Name : </td>
+          <td>{{op_gfg[0]}}</td>
+        </tr>
+        <tr>
+          <td>Institution : </td>
+          <td>{{op_gfg[1]}}</td>
+        </tr>
+        <tr>
+          <td>Rank in Institution :  </td>
+          <td>{{op_gfg[2]}}</td>
+        </tr>
+        <tr>
+          <td>Problems Solved : </td>
+          <td>{{op_gfg[3]}}</td>
+        </tr>
+        <tr>
+          <td>Overall Score: </td>
+          <td>{{op_gfg[4]}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <h3>Keep Up the good work!</h3>
+    </div>
+  </div>
+
+</div>
+
+
+  <div class="row2">
+    <img id="compsection" src='/static/styles/compsection.png'>
+    <br>
+    <br>
+    <br>
+    <h3>Check Out Upcoming and Ongoing contests on your favourite platforms!</h3> 
+    <br>
+    <br>
+    
+  <a href="https://www.codechef.com/contests/?itm_medium=navmenu&itm_campaign=allcontests#present-contests" target="_blank"> <button  class="btn1">CodeChef Contests </button></a>
+  <a href="https://codeforces.com/contests?complete=true" target="_blank"> <button  class="btn1">CodeForces Contests </button></a>
+  <a href="https://www.hackerearth.com/challenges/?filters=competitive%2Chackathon%2Chiring%2Cuniversity" target="_blank"> <button  class="btn1">HackerEarth Contests </button></a>
+  <a href="https://www.hackerrank.com/contests" target="_blank"> <button  class="btn1">HackerRank Contests </button></a>  
+  <a href="https://leetcode.com/contest/" target="_blank"> <button  class="btn1">LeetCode Contests </button></a>
+
+
+  </div>
+   
+  <footer>
+    <div class="foot">
+      <br>
+      <br>
+      <img id="footsection" src='/static/styles/footsection.png'>
+      <br>
+      <br>
+    <div class="foot1">
+     <p>  <form action="{{ url_for('index')}}" method="get">
+      Your Name:<br>
+      <input type="text" name="fdb_user"><br><br>
+      Feedback:<br> <textarea class='text_area' name="fdb_msg" placeholder="Drop your valuable feedback here!" >
+      </textarea><br>
+      <button class='feedbtn' type="submit">Send 🚀</button>
+      </form></p>
+  </div>
+    <div class="foot2">
+      <table class='foot-table'>
+        <tr><th colspan=5><h2>      Connect with me!       </h2> </th></tr>
+        <tr>
+          <td><a href="https://www.facebook.com/ashutosh.sahay.9" target="_blank"><img class="flogo" src="/static/styles/facebook.svg" alt="Facebook"></a></td>
+          <td><a href="https://www.instagram.com/_aashuu.__/" target="_blank"><img class="flogo" src="/static/styles/instagram.svg" alt="Instagram"></a></td>
+          <td><a href="https://github.com/ashutosh0308" target="_blank"><img class="flogo" src="/static/styles/github.svg" alt="Github"></a></td>
+          <td><a href="https://www.linkedin.com/in/ashutosh0308/" target="_blank"><img class="flogo" src="/static/styles/linkedin.svg"alt="Linkedin"></a></td>
+        </tr>
+        <tr><th colspan=5><h3>     Show some 🤍 and send your feedback!     </h3> </th></tr>
+        <tr><th colspan=5>     Made by Ash     </th></tr>
+      </table>
+    </div>
+  </div>
+
+
+  </footer>
+
+
+<script>
+
+// Get the modal for CC
+var modalcc = document.getElementById("myModal_cc");
+
+// Get the button that opens the modal
+var btncc = document.getElementById("showmodal_cc");
+
+// Get the <span> element that closes the modal
+var spancc = document.getElementsByClassName("closecc")[0];
+
+// When the user clicks the button, open the modal 
+const openmodalcc =()=>{
+  modalcc.style.display="block";
+}
+// When the user clicks on <span> (x), close the modal
+spancc.onclick = function() {
+  modalcc.style.display = "none";
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modalcc.style.display = "none";
+  }
+}
+
+
+ // Get the modal for CF
+var modalcf = document.getElementById("myModal_cf");
+
+// Get the button that opens the modal
+var btncf = document.getElementById("showmodal_cf");
+
+// Get the <span> element that closes the modal
+var spancf = document.getElementsByClassName("closecf")[0];
+
+// When the user clicks the button, open the modal 
+const openmodalcf =()=>{
+  modalcf.style.display="block";
+}
+// When the user clicks on <span> (x), close the modal
+spancf.onclick = function() {
+  modalcf.style.display = "none";
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modalcf.style.display = "none";
+  }
+}
+
+
+
+
+
+// Get the modal for HR
+var modalhr = document.getElementById("myModal_hr");
+
+// Get the button that opens the modal
+var btnhr = document.getElementById("showmodal_hr");
+
+// Get the <span> element that closes the modal
+var spanhr = document.getElementsByClassName("closehr")[0];
+
+// When the user clicks the button, open the modal 
+const openmodalhr =()=>{
+  modalhr.style.display="block";
+}
+// When the user clicks on <span> (x), close the modal
+spanhr.onclick = function() {
+  modalhr.style.display = "none";
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modalhr.style.display = "none";
+  }
+}
+
+
+
+
+// Get the modal for GFG
+var modalgfg = document.getElementById("myModal_gfg");
+
+// Get the button that opens the modal
+var btngfg = document.getElementById("showmodal_gfg");
+
+// Get the <span> element that closes the modal
+var spangfg = document.getElementsByClassName("closegfg")[0];
+
+// When the user clicks the button, open the modal 
+const openmodalgfg =()=>{
+  modalgfg.style.display="block";
+}
+// When the user clicks on <span> (x), close the modal
+spangfg.onclick = function() {
+  modalgfg.style.display = "none";
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modalgfg.style.display = "none";
+  }
+}
+//How to use CodeStat
+const instruction =()=>{
+  alert("Enter the username that you use on the selected platform and click on Submit.\nDetails will be fetched and you'll see a message on the card.\nClick on Get Details button to get the details.\nP.S. - If incase the site crashes just reload it and press Get Details.\n\nHave fun and do send me a feedback!!");
+}
+
+
+</script>
+</body>
+</html>
+
+
+
+
